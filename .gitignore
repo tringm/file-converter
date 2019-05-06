@@ -3,3 +3,7 @@
 
 #Pycache
 __pycache__/
+
+#out files
+
+test/io/out/*
