@@ -11,6 +11,7 @@ ndjson="*"
 xlwt="*"
 openpyxl="*"
 xlrd="*"
+coverage="*"
 
 [requires]
 python_version = "3.6"
