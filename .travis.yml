@@ -4,7 +4,6 @@ python: "3.6"
 install:
   - pip install pipenv
   - pipenv install
-  - mkdir -p test/io/out
 script:
   - coverage run test.py all
 after_script:

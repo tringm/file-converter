@@ -11,3 +11,13 @@ Available converter:
     python main.py -h
     ```
     for more instruction
+    * ***NOTE***:
+        * The converter log will be stored in io/out/converter.log
+    
+2. Test:
+    ```python
+    python test.py -h
+
+    ```
+    * ***NOTE***: 
+        * The metrics log file will be stored in test/io/out/metrics.log

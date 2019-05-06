@@ -3,7 +3,8 @@ from typing import Union
 from pathlib import Path
 import pandas as pd
 import timeit
-
+from config import set_up_logger
+import logging
 
 allowed_formats = ['csv', 'json', 'xlsx', 'ndjson']
 
@@ -11,8 +12,10 @@ allowed_formats = ['csv', 'json', 'xlsx', 'ndjson']
 class FormatConverter(ABC):
     def __init__(self):
         super().__init__()
+        set_up_logger('converter')
 
-    def validate_convert_file(self, input_file_path, output_format, output_file_path, input_format):
+    @staticmethod
+    def validate_convert_file(input_file_path, output_format, output_file_path, input_format):
         if output_format not in allowed_formats:
             raise ValueError(f"Expected input format to be {str(allowed_formats)} instead of {output_format}")
 
@@ -56,6 +59,7 @@ class FormatConverter(ABC):
 class PandasFormatConverter(FormatConverter):
     def __init__(self):
         super().__init__()
+        self.logger = logging.getLogger('PandasFormatConverter')
 
     def convert_file(self, input_file_path: Union[str, Path], output_format: str, output_file_path=None,
                      input_format=None, load_options=None, convert_options=None):
@@ -86,7 +90,7 @@ class PandasFormatConverter(FormatConverter):
             load_options.update(default_options[input_format])
 
         data = read_functions[input_format](input_file_path, **load_options)
-        print(f"Load file {str(input_file_path)} took {timeit.default_timer() - start}")
+        self.logger.info(f"Load file {str(input_file_path)} took {timeit.default_timer() - start}")
 
         start = timeit.default_timer()
         convert_functions = {'csv': data.to_csv, 'xlsx': data.to_excel, 'json': data.to_json, 'ndjson': data.to_json}
@@ -98,4 +102,4 @@ class PandasFormatConverter(FormatConverter):
 
         convert_functions[output_format](output_file_path, **convert_options)
 
-        print(f"Convert file to {output_format} took {timeit.default_timer() - start}")
+        self.logger.info(f"Convert file to {output_format} took {timeit.default_timer() - start}")

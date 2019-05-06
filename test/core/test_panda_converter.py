@@ -3,7 +3,7 @@ import json
 import ndjson
 
 from core.converter import PandasFormatConverter
-from test.tests import TestCaseCompare
+from test.test_case import TestCaseCompare
 
 
 class TestPandasFormatConverter(TestCaseCompare):

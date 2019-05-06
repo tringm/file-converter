@@ -7,6 +7,7 @@ def root_path():
 
 
 def set_up_logger(log_name=None, default_logging_level=logging.INFO):
+    (root_path() / 'io' / 'out').mkdir(parents=True, exist_ok=True)
     if not log_name:
         log_path = root_path() / 'io' / 'out' / 'main.log'
     else:
