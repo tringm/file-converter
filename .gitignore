@@ -1,0 +1,5 @@
+#IDEA
+.idea/
+
+#Pycache
+__pycache__/
